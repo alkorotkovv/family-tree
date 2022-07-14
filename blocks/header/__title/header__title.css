@@ -1,0 +1,10 @@
+.header__title {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.06;
+  text-transform: uppercase;
+
+  justify-self: center;
+}
