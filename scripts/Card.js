@@ -32,7 +32,7 @@ export class Card {
 
   //Метод, добавляющий слушатели
   _setEventListeners() {
-    this._cardImageElement.addEventListener('click', () => {
+    this._cardElement.addEventListener('click', () => {
       this._openPopupCard();
     });
   };

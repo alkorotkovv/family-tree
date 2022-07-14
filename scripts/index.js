@@ -164,7 +164,7 @@ popupList.forEach((popupItem)=>{
 
 
 //Создаем карточки по умолчанию
-initCards();
+//initCards();
 
 
 /*
