@@ -1,5 +1,5 @@
 //Импорт необходимых данных
-import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout} from './index.js';
+import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGeneration} from './index.js';
 
 //Класс карточки
 export class Card {
@@ -10,9 +10,8 @@ export class Card {
     this._place = data.place;
     this._birthday = data.birthday;
     this._about = data.about;
-    this._generation = data._generation;
+    this._generation = data.generation;
   };
-
 
   //Метод получения шаблона карточки
   _getTemplate() {
@@ -27,7 +26,7 @@ export class Card {
     popupCardPlace.textContent = this._place;
     popupCardBirthday.textContent = this._birthday;
     popupCardAbout.textContent = this._about;
-
+    popupCardGeneration.textContent = this._generation;
     openPopup(popupCard);
   };
 

@@ -15,11 +15,9 @@ export const popupCardTitle = popupCard.querySelector('.card-scale__title');
 export const popupCardPlace = popupCard.querySelector('.card-scale__place');
 export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday');
 export const popupCardAbout = popupCard.querySelector('.card-scale__about');
+export const popupCardGeneration = popupCard.querySelector('.card-scale__generation');
 
-const cardsList = document.querySelector('.content');
-const generationList = document.querySelectorAll('.generation');
-const generationZero = document.getElementById('0');
-
+const generationList = document.querySelector('.content');
 
 export const popupAddCard = page.querySelector('.popup_type_add');
 const formAddCard = popupAddCard.querySelector('.form_card_add');
@@ -107,38 +105,30 @@ function formAddCardSubmitHandler (evt) {
   formAddCard.reset();  //Очищаем поля формы
   formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
   closePopup(popupAddCard);
+  checkGeneration(cardData.generation);
 };
 
 //Функция добавления карточки
 function addCard(cardData) {
-  console.log(cardData)
+  //console.log(cardData)
   const card = new Card(cardData);
   const cardElement = card.createCardElement();
   insertCard(cardElement, cardData.generation);
-
-  if (cardData.generation == renderPage()-1)
-  {
-    const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
-    generationElement.id = cardData.generation + 1;
-    cardsList.append(generationElement);
-    const addcard = new AddCard();
-    const generation = addcard._generation;
-    //console.log(generation);
-    generationElement.append(addcard.createAddCardElement());
-  }
-
-  renderPage();
-
 };
 
-function renderPage() {
-  const generationElements = page.querySelectorAll('.generation');
+//Функция проверки, не пора ли создавать новое поколение
+function checkGeneration(nowGeneration) {
+  if (nowGeneration == generationCount()-1) //тк нумерация поколений начинается с 0, вычитаем 1
+    createGeneration(nowGeneration);
+};
 
-  const generationCount = Array.from(page.querySelectorAll('.generation'));
-  //console.log(generationCount);
-  return generationCount.length;
-}
-
+//Функция создания нового поколения
+function createGeneration(nowGeneration) {
+  const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
+  generationElement.id = nowGeneration + 1;
+  generationList.append(generationElement);
+  generationElement.append(generateAddCard());
+};
 
 //Функция вставки карточки в разметку
 function insertCard(cardElement, generation) {
@@ -146,16 +136,11 @@ function insertCard(cardElement, generation) {
   generationElement.prepend(cardElement);
 };
 
-
-/*
-//Функция инициализации первых 6ти карточек
-function initCards() {
-  initialCards.forEach((cardData) => {
-    const cardElement = generateCard(cardData);
-    insertCard(cardElement);
-  });
+//Функция возвращающая количество текущих поколений на странице
+function generationCount() {
+  const generationCount = Array.from(page.querySelectorAll('.generation'));
+  return generationCount.length;
 };
-
 
 
 
@@ -185,27 +170,21 @@ formEdit.addEventListener('submit', formEditSubmitHandler);
 
 
 
-//Слушатель для кнопки создания новой карточки в попапе
+//Слушатель для кнопки сабмита в попапе добавления карточки
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
 //Добавляем слушатели на все попапы (для закрытия попапа кликом на оверлей или крестик)
 popupList.forEach((popupItem)=>{
   popupItem.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button'))
       closePopup(popupItem)
-    }
   });
 });
 
 
-//Создаем карточки по умолчанию
-//initCards();
-
-
-
-//Создаем валидаторы для форм
+//Создаем валидатор для формы
 const formAddValidator = new FormValidator(validateList, formAddCard);
 formAddValidator.enableValidation();
 
-//Создание первоначально карточки +
+//Создание первоначальной карточки +
 initAddCard();
