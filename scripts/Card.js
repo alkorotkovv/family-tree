@@ -10,6 +10,7 @@ export class Card {
     this._place = data.place;
     this._birthday = data.birthday;
     this._about = data.about;
+    this._generation = data._generation;
   };
 
 

@@ -1,5 +1,5 @@
 //Импорт необходимых данных
-import { initialCards, validateList } from "./constants.js";
+import { validateList } from "./constants.js";
 import { Card } from "./Card.js";
 import { AddCard } from "./AddCard.js";
 import { FormValidator } from "./FormValidator.js";
@@ -17,6 +17,9 @@ export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday'
 export const popupCardAbout = popupCard.querySelector('.card-scale__about');
 
 const cardsList = document.querySelector('.content');
+const generationList = document.querySelectorAll('.generation');
+const generationZero = document.getElementById('0');
+
 
 export const popupAddCard = page.querySelector('.popup_type_add');
 const formAddCard = popupAddCard.querySelector('.form_card_add');
@@ -25,6 +28,7 @@ const imageInput = formAddCard.querySelector('.form__input_content_image');
 const placeInput = formAddCard.querySelector('.form__input_content_place');
 const birthdayInput = formAddCard.querySelector('.form__input_content_birthday');
 const aboutInput = formAddCard.querySelector('.form__input_content_about');
+export const IDInput = formAddCard.querySelector('.form_id');
 
 
 
@@ -37,7 +41,7 @@ function generateAddCard() {
 //Отрисовка карточки +
 function initAddCard() {
     const cardAddElement = generateAddCard();
-    insertCard(cardAddElement);
+    insertCard(cardAddElement, 0);
 };
 
 
@@ -90,32 +94,60 @@ function formEditSubmitHandler (evt) {
 */
 //Обработчик добавления новой карточки
 function formAddCardSubmitHandler (evt) {
-  console.log('fff');
   evt.preventDefault();
   const cardData = {
     name: nameInput.value,
     image: imageInput.value,
     place: placeInput.value,
     birthday: birthdayInput.value,
-    about: aboutInput.value
+    about: aboutInput.value,
+    generation: Number(IDInput.textContent)
   };
-  insertCard(generateCard(cardData));
+  addCard(cardData);
   formAddCard.reset();  //Очищаем поля формы
   formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
   closePopup(popupAddCard);
 };
 
 //Функция добавления карточки
-function generateCard(cardData) {
+function addCard(cardData) {
+  console.log(cardData)
   const card = new Card(cardData);
-  return card.createCardElement();
+  const cardElement = card.createCardElement();
+  insertCard(cardElement, cardData.generation);
+
+  if (cardData.generation == renderPage()-1)
+  {
+    const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
+    generationElement.id = cardData.generation + 1;
+    cardsList.append(generationElement);
+    const addcard = new AddCard();
+    const generation = addcard._generation;
+    //console.log(generation);
+    generationElement.append(addcard.createAddCardElement());
+  }
+
+  renderPage();
+
 };
+
+function renderPage() {
+  const generationElements = page.querySelectorAll('.generation');
+
+  const generationCount = Array.from(page.querySelectorAll('.generation'));
+  //console.log(generationCount);
+  return generationCount.length;
+}
+
 
 //Функция вставки карточки в разметку
-function insertCard(cardElement) {
-  cardsList.prepend(cardElement);
+function insertCard(cardElement, generation) {
+  const generationElement = document.getElementById(`${generation}`);
+  generationElement.prepend(cardElement);
 };
 
+
+/*
 //Функция инициализации первых 6ти карточек
 function initCards() {
   initialCards.forEach((cardData) => {
