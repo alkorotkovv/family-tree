@@ -1,4 +1,4 @@
-.addcard {
+.button-addcard {
   width: 80px;
   height: 135px;
   margin: 10px;
@@ -16,7 +16,7 @@
   line-height: 1.06;
 }
 
-.addcard:hover {
+.button-addcard:hover {
   cursor: pointer;
   border: 2px solid black;
 }

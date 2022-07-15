@@ -1,6 +1,7 @@
 //Импорт необходимых данных
 import { initialCards } from "./constants.js";
 import { Card } from "./Card.js";
+import { AddCard } from "./AddCard.js";
 
 //Блок объявления переменных
 const page = document.querySelector('.page');
@@ -14,8 +15,32 @@ export const popupCardPlace = popupCard.querySelector('.card-scale__place');
 export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday');
 export const popupCardAbout = popupCard.querySelector('.card-scale__about');
 
-
 const cardsList = document.querySelector('.content');
+
+export const popupAddCard = page.querySelector('.popup_type_add');
+const formAddCard = popupAddCard.querySelector('.form_card_add');
+const nameInput = formAddCard.querySelector('.form__input_content_name');
+const imageInput = formAddCard.querySelector('.form__input_content_image');
+const placeInput = formAddCard.querySelector('.form__input_content_place');
+const birthdayInput = formAddCard.querySelector('.form__input_content_birthday');
+const aboutInput = formAddCard.querySelector('.form__input_content_about');
+
+
+
+//Генерация карточки +
+function generateAddCard() {
+  const card = new AddCard();
+  return card.createAddCardElement();
+}
+
+//Отрисовка карточки +
+function initAddCard() {
+    const cardAddElement = generateAddCard();
+    insertCard(cardAddElement);
+};
+
+
+
 
 
 
@@ -88,21 +113,27 @@ function formEditSubmitHandler (evt) {
   closePopup(popupEdit);
 };
 
+*/
 //Обработчик добавления новой карточки
-function formAddSubmitHandler (evt) {
+function formAddCardSubmitHandler (evt) {
+  console.log('fff');
   evt.preventDefault();
 
   const cardData = {
-    name: placeInput.value,
-    link: urlInput.value
+    name: nameInput.value,
+    image: imageInput.value,
+    place: placeInput.value,
+    birthday: birthdayInput.value,
+    about: aboutInput.value
   };
+
   insertCard(generateCard(cardData));
-  formAdd.reset();  //Очищаем поля формы
-  formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
-  closePopup(popupAdd);
+  formAddCard.reset();  //Очищаем поля формы
+  //formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
+  closePopup(popupAddCard);
 };
 
-*/
+
 
 //Функция добавления карточки
 function generateCard(cardData) {
@@ -148,9 +179,13 @@ buttonClosePopupList.forEach((buttonElement) => {
 //Слушатель для кнопки сохранения формы редактирования профиля
 formEdit.addEventListener('submit', formEditSubmitHandler);
 
-//Слушатель для кнопки создания новой карточки в попапе
-formAdd.addEventListener('submit', formAddSubmitHandler);
 */
+
+
+
+//Слушатель для кнопки создания новой карточки в попапе
+formAddCard.addEventListener('submit', formAddCardSubmitHandler);
+
 //Добавляем слушатели на все попапы (для закрытия попапа кликом на оверлей или крестик)
 popupList.forEach((popupItem)=>{
   popupItem.addEventListener('click', (evt) => {
@@ -159,8 +194,6 @@ popupList.forEach((popupItem)=>{
     }
   });
 });
-
-
 
 
 //Создаем карточки по умолчанию
@@ -175,3 +208,8 @@ formEditValidator.enableValidation();
 const formAddValidator = new FormValidator(validateList, formAdd);
 formAddValidator.enableValidation();
 */
+
+
+
+initAddCard();
+console.log(formAddCard)
