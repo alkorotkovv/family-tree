@@ -32,19 +32,30 @@ export class Card {
 
   //Метод, добавляющий слушатели
   _setEventListeners() {
-    this._cardElement.addEventListener('click', () => {
+    this._cardImageElement.addEventListener('click', () => {
       this._openPopupCard();
     });
+    this._cardNameElement.addEventListener('click', () => {
+      this._openPopupCard();
+    });
+    this._cardDeleteElement.addEventListener('click', () => {
+      this._deleteCard();
+    });
   };
+
+  //Метод удаления карточки
+  _deleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null; //очищаем ссылку на DOM элемент
+  };
+
 
   //Публичный метод создания элемента карточки
   createCardElement() {
     this._cardElement = this._getTemplate();
     this._cardImageElement = this._cardElement.querySelector('.card__image');
     this._cardNameElement = this._cardElement.querySelector('.card__title');
-
-    //this._cardLikeElement = this._cardElement.querySelector('.card__like');
-    //this._cardDeleteElement = this._cardElement.querySelector('.card__delete');
+    this._cardDeleteElement = this._cardElement.querySelector('.card__delete');
 
     this._cardNameElement.textContent = this._name;
     this._cardImageElement.src = this._image;
@@ -70,13 +81,5 @@ export class Card {
     this._cardLikeElement.classList.toggle('card__like_active');
     this._isLiked = !this._isLiked;
   };
-
-
-
-  //Метод удаления карточки
-  _deleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null; //очищаем ссылку на DOM элемент
-  };
-
 */
+

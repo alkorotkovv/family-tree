@@ -42,7 +42,6 @@ function initAddCard() {
     insertCard(cardAddElement, 0);
 };
 
-
 //Функция получения открытого попапа
 function getOpenedPopup() {
   return page.querySelector('.popup_opened');
@@ -116,7 +115,7 @@ function addCard(cardData) {
   insertCard(cardElement, cardData.generation);
 };
 
-//Функция проверки, не пора ли создавать новое поколение
+//Функция проверки, не надо ли создавать новое поколение
 function checkGeneration(nowGeneration) {
   if (nowGeneration == generationCount()-1) //тк нумерация поколений начинается с 0, вычитаем 1
     createGeneration(nowGeneration);
