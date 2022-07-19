@@ -30,3 +30,5 @@ document.addEventListener('drop', function(evt) {
   area.appendChild(elem);
   checkGeneration();
 });
+
+
