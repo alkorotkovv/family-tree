@@ -1,22 +1,32 @@
-const zone = document.querySelector('.content');
-const card = document.querySelector('#dragcard');
+import { Area } from "./Area.js";
+let elem = null;
 
-zone.ondragover = allowDrop;
 
-function allowDrop(evt) {
-  evt.preventDefault();
+function generateAreas() {
+  const area = new Area();
+  return area.createAreaElement();
 }
 
-card.ondragstart = drag;
+generateAreas();
 
-function drag(evt) {
-  evt.dataTransfer.setData('id', evt.target.id);
+const generationZero = document.getElementById(`0`);
+const generationOne = document.getElementById(`1`);
+for (let i = 0; i < 10; i++) { // выведет 0, затем 1, затем 2
+  generationZero.append(generateAreas());
+  generationOne.append(generateAreas());
 }
 
-zone.ondrop = drop;
 
-function drop(evt) {
-  let itemId = evt.dataTransfer.getData('id');
-  console.log(itemId);
-  evt.target.append(document.getElementById(itemId))
-}
+document.addEventListener('dragstart', function(evt) {
+    console.log('Start');
+    console.log(evt.target.closest('.card'));
+    elem = evt.target.closest('.card');
+});
+
+document.addEventListener('drop', function(evt) {
+  console.log('Drop');
+  console.log(evt.target.closest('.area'));
+  const area = evt.target.closest('.area');
+  area.appendChild(elem);
+  //Elem = this._cardElement;
+});
