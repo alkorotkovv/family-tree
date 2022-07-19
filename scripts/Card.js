@@ -1,5 +1,5 @@
 //Импорт необходимых данных
-import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGeneration} from './index.js';
+import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGeneration, checkGeneration} from './index.js';
 
 export let Elem;
 
@@ -44,18 +44,13 @@ export class Card {
       this._deleteCard();
     });
 
-    this._cardElement.addEventListener('dragstart', function(evt) {
-      console.log('Start');
-      console.log(evt.target.closest('.card'));
-      Elem = this._cardElement;
-    });
-
   };
 
   //Метод удаления карточки
   _deleteCard() {
     this._cardElement.remove();
     this._cardElement = null; //очищаем ссылку на DOM элемент
+    checkGeneration();
   };
 
   //Публичный метод создания элемента карточки

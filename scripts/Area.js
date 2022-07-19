@@ -10,20 +10,20 @@ export class Area {
 
   _setEventListeners() {
     this._areaElement.addEventListener('dragenter', function() {
-      console.log('Enter');
+      //console.log('Enter');
     });
 
     this._areaElement.addEventListener('dragleave', function() {
-      console.log('Leave');
+      //console.log('Leave');
     });
 
     this._areaElement.addEventListener('dragover', function(event) {
       event.preventDefault();
-      console.log('Over');
+      //console.log('Over');
     });
 
     this._areaElement.addEventListener('drop', function(event) {
-      console.log('Drop');
+      //console.log('Drop');
       //this.appendChild(Elem);
     });
 

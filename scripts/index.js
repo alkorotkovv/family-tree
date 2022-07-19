@@ -3,6 +3,7 @@ import { validateList } from "./constants.js";
 import { Card } from "./Card.js";
 import { AddCard } from "./AddCard.js";
 import { FormValidator } from "./FormValidator.js";
+import { Area } from "./Area.js";
 
 //Блок объявления переменных
 const page = document.querySelector('.page');
@@ -17,7 +18,8 @@ export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday'
 export const popupCardAbout = popupCard.querySelector('.card-scale__about');
 export const popupCardGeneration = popupCard.querySelector('.card-scale__generation');
 
-const generationList = document.querySelector('.content');
+const content = document.querySelector('.content');
+const buffer = document.querySelector('.buffer');
 
 export const popupAddCard = page.querySelector('.popup_type_add');
 const formAddCard = popupAddCard.querySelector('.form_card_add');
@@ -39,7 +41,8 @@ function generateAddCard() {
 //Отрисовка карточки +
 function initAddCard() {
     const cardAddElement = generateAddCard();
-    insertCard(cardAddElement, 0);
+    insertCard(cardAddElement);
+    createGeneration(0);
 };
 
 //Функция получения открытого попапа
@@ -104,7 +107,6 @@ function formAddCardSubmitHandler (evt) {
   formAddCard.reset();  //Очищаем поля формы
   formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
   closePopup(popupAddCard);
-  checkGeneration(cardData.generation);
 };
 
 //Функция добавления карточки
@@ -112,27 +114,56 @@ function addCard(cardData) {
   //console.log(cardData)
   const card = new Card(cardData);
   const cardElement = card.createCardElement();
-  insertCard(cardElement, cardData.generation);
+  insertCard(cardElement);
+  //checkGeneration();
+  //insertCard(cardElement, cardData.generation);
 };
 
 //Функция проверки, не надо ли создавать новое поколение
-function checkGeneration(nowGeneration) {
-  if (nowGeneration == generationCount()-1) //тк нумерация поколений начинается с 0, вычитаем 1
-    createGeneration(nowGeneration);
+export function checkGeneration() {
+  console.log('проверяем поколения');
+  const generationList = document.querySelectorAll('.generation');
+  //console.log(generationList.length);
+  const lastGeneration = document.getElementById(`${generationList.length}`);
+  const prelastGeneration = document.getElementById(`${generationList.length-1}`);
+  //console.log("последнее поколение ");
+ // console.log(lastGeneration);
+  //console.log("предпоследнее поколение ");
+ // console.log(prelastGeneration);
+  const lastCardList = lastGeneration.querySelectorAll('.card');
+  //console.log(cardList);
+  if (lastCardList.length > 0)
+    createGeneration(Number(lastGeneration.id));
+  else if ((lastCardList.length == 0) && (prelastGeneration != null))
+    {
+      const prelastCardList = prelastGeneration.querySelectorAll('.card');
+      if (prelastCardList.length == 0)
+        lastGeneration.remove();
+    }
 };
 
 //Функция создания нового поколения
 function createGeneration(nowGeneration) {
   const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
   generationElement.id = nowGeneration + 1;
-  generationList.append(generationElement);
-  generationElement.append(generateAddCard());
+  content.append(generationElement);
+  for (let i = 0; i < nowGeneration + 10; i++) { // выведет 0, затем 1, затем 2
+    generationElement.append(generateAreas());
+  }
+  //generationElement.append(generateAddCard());
 };
 
+/*-
 //Функция вставки карточки в разметку
 function insertCard(cardElement, generation) {
   const generationElement = document.getElementById(`${generation}`);
   generationElement.prepend(cardElement);
+};
+*/
+
+//Функция вставки карточки в разметку
+function insertCard(cardElement) {
+  buffer.append(cardElement);
 };
 
 //Функция возвращающая количество текущих поколений на странице
@@ -141,7 +172,11 @@ function generationCount() {
   return generationCount.length;
 };
 
-
+//Функция генерации области для карточки
+function generateAreas() {
+  const area = new Area();
+  return area.createAreaElement();
+}
 
 
 /*

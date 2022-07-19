@@ -15,14 +15,14 @@ export class AddCard {
   //Метод открытия попапа карточки
   _openPopupAddCard() {
     //console.log(IDInput);
-    IDInput.textContent = this._generation;
+    //IDInput.textContent = this._generation;
     openPopup(popupAddCard);
   };
 
   //Метод, добавляющий слушатели
   _setEventListeners() {
     this._cardAddElement.addEventListener('click', (evt) => {
-      this._generation = evt.target.closest('.generation').id;
+      //this._generation = evt.target.closest('.generation').id;
       //console.log(evt.target.closest('.generation').id);
       this._openPopupAddCard();
     });
