@@ -1,7 +1,11 @@
 .area {
-  width: 100px;
-  height: 180px;
+  width: 84px;
+  height: 139px;
   margin: 5px;
   padding: 0;
-  background-color: blueviolet;
+  background-color: #F0E7D6;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.3) inset;
+
 }
