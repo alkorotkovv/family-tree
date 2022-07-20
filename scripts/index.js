@@ -16,6 +16,7 @@ export const popupCardTitle = popupCard.querySelector('.card-scale__title');
 export const popupCardPlace = popupCard.querySelector('.card-scale__place');
 export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday');
 export const popupCardAbout = popupCard.querySelector('.card-scale__about');
+export const popupCardGender = popupCard.querySelector('.card-scale__gender');
 export const popupCardGeneration = popupCard.querySelector('.card-scale__generation');
 
 const content = document.querySelector('.content');
@@ -28,6 +29,7 @@ const imageInput = formAddCard.querySelector('.form__input_content_image');
 const placeInput = formAddCard.querySelector('.form__input_content_place');
 const birthdayInput = formAddCard.querySelector('.form__input_content_birthday');
 const aboutInput = formAddCard.querySelector('.form__input_content_about');
+const genderInputs = formAddCard.querySelectorAll('.form__item_content_gender');
 export const IDInput = formAddCard.querySelector('.form_id');
 
 
@@ -69,6 +71,15 @@ function closePopupByKeyPress(evt) {
   }
 };
 
+//Функция определяющая пол, выбранный в форме
+function getGender() {
+  let gender;
+  genderInputs.forEach((genderInput) => {
+    if (genderInput.checked)
+      gender = genderInput.value;
+  })
+  return gender;
+};
 
 /*
 //Функция открытия попапа редактирования профиля
@@ -100,8 +111,10 @@ function formAddCardSubmitHandler (evt) {
     place: placeInput.value,
     birthday: birthdayInput.value,
     about: aboutInput.value,
+    gender: getGender(),
     generation: Number(IDInput.textContent)
   };
+  console.log(cardData)
   addCard(cardData);
   formAddCard.reset();  //Очищаем поля формы
   //formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной

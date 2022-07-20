@@ -44,6 +44,17 @@
                 <input class="form__input form__input_content_name" id="input-name" type="text" name="name" placeholder="ФИО" value="Имя Фамилия" required minlength="2" maxlength="30">
                 <span class="form__input-error input-name-error" ></span>
               </label>
+              <div class="form__genders">
+                <div class="form__gender">
+                  <input class="form__item form__item_content_gender" id="male" type="radio" name="gender" value="male" checked>
+                  <label for="male" class="form__label form__label_direction_right">Мужчина</label>
+                </div>
+                <div class="form__gender">
+                  <input class="form__item form__item_content_gender" id="female" type="radio" name="gender" value="female">
+                  <label for="female" class="form__label form__label_direction_right">Женщина</label>
+                </div>
+              </div>
+              <span class="form__input-error input-gender-error"></span>
               <label class="form__field">
                 <input class="form__input form__input_content_image" id="input-image" type="text" name="image" placeholder="Ссылка на фотографию" value="./images/photo.png">
                 <span class="form__input-error input-image-error" ></span>
@@ -77,7 +88,10 @@
             <img class="card-scale__image" src='./images/photo.png' alt="попап фотография">
             <div class="card-scale__information">
               <h2 class="card-scale__title">Коротков Александр Андреевич</h2>
-
+              <div class="card-scale__line-block">
+                <p class="card-scale__line-block-text">Пол:&ensp;</p>
+                <p class="card-scale__line-block-text card-scale__gender">???</p>
+              </div>
               <div class="card-scale__line-block">
                 <p class="card-scale__line-block-text">Дата рождения:&ensp;</p>
                 <p class="card-scale__line-block-text card-scale__birthday">12.03.1995</p>

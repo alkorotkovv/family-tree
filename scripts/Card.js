@@ -1,5 +1,5 @@
 //Импорт необходимых данных
-import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGeneration, checkGeneration} from './index.js';
+import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGender, popupCardGeneration, checkGeneration} from './index.js';
 
 export let Elem;
 
@@ -12,6 +12,7 @@ export class Card {
     this._place = data.place;
     this._birthday = data.birthday;
     this._about = data.about;
+    this._gender = data.gender;
     this._generation = data.generation;
   };
 
@@ -28,6 +29,7 @@ export class Card {
     popupCardPlace.textContent = this._place;
     popupCardBirthday.textContent = this._birthday;
     popupCardAbout.textContent = this._about;
+    popupCardGender.textContent = this._gender;
     popupCardGeneration.textContent = this._generation;
     openPopup(popupCard);
   };
@@ -53,6 +55,12 @@ export class Card {
     checkGeneration();
   };
 
+  //Метод раскрашивания карточки в зависимости от пола
+  _paintCard() {
+    if (this._gender == "male") this._cardNameElement.style.backgroundColor = "#92d7ff"
+    else this._cardNameElement.style.backgroundColor = "#ff9bfa";
+  }
+
   //Публичный метод создания элемента карточки
   createCardElement() {
     this._cardElement = this._getTemplate();
@@ -60,10 +68,12 @@ export class Card {
     this._cardNameElement = this._cardElement.querySelector('.card__title');
     this._cardDeleteElement = this._cardElement.querySelector('.card__delete');
 
+
     this._cardNameElement.textContent = this._name;
     this._cardImageElement.src = this._image;
     this._cardImageElement.alt = 'фотография ' + this._name;
     this._setEventListeners();
+    this._paintCard();
     //console.log(this._cardElement)
     return this._cardElement;
   };
