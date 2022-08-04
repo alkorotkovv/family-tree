@@ -24,6 +24,7 @@ document.addEventListener('dragstart', function(evt) {
     if (area != null)
     area.style.boxShadow = "0px 0px 8px 4px rgba(0, 0, 0, 0.3) inset";
     elem = evt.target.closest('.card');
+    elem.addEventListener('touchmove', gg(evt, elem));
 });
 
 document.addEventListener('drop', function(evt) {
@@ -36,3 +37,6 @@ document.addEventListener('drop', function(evt) {
 });
 
 
+function gg(evt, elem) {
+  console.log(elem);
+};
