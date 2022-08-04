@@ -42,6 +42,12 @@ export class Card {
     this._cardNameElement.addEventListener('click', () => {
       this._openPopupCard();
     });
+    this._cardElement.addEventListener('mouseover', () => {
+      this._showDeleteIcon();
+    });
+    this._cardElement.addEventListener('mouseout', () => {
+      this._hideDeleteIcon();
+    });
     this._cardDeleteElement.addEventListener('click', () => {
       this._deleteCard();
     });
@@ -57,8 +63,16 @@ export class Card {
 
   //Метод раскрашивания карточки в зависимости от пола
   _paintCard() {
-    if (this._gender == "male") this._cardNameElement.style.backgroundColor = "#92d7ff"
+    if (this._gender === "male") this._cardNameElement.style.backgroundColor = "#92d7ff"
     else this._cardNameElement.style.backgroundColor = "#ff9bfa";
+  };
+
+  _showDeleteIcon() {
+    this._cardDeleteElement.classList.add('card__delete_active');
+  }
+
+  _hideDeleteIcon() {
+    this._cardDeleteElement.classList.remove('card__delete_active');
   }
 
   //Публичный метод создания элемента карточки
@@ -80,19 +94,4 @@ export class Card {
 
 
 }
-
-
-
-
-
-
-
-/*
-
-  //Метод лайка
-  _like() {
-    this._cardLikeElement.classList.toggle('card__like_active');
-    this._isLiked = !this._isLiked;
-  };
-*/
 
