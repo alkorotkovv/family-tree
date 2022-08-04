@@ -35,7 +35,7 @@
       </footer>
 
 
-      <div class="popup popup_type_add ">
+      <div class="popup popup_type_add popup_opened">
         <div class="popup__container">
           <form class="form form_card_add" name="form_card_add" novalidate>
             <h2 class="form__title">Добавление члена семьи</h2>
@@ -44,6 +44,19 @@
                 <input class="form__input form__input_content_name" id="input-name" type="text" name="name" placeholder="ФИО" value="Имя Фамилия" required minlength="2" maxlength="30">
                 <span class="form__input-error input-name-error" ></span>
               </label>
+
+              <div class="form__genders">
+                <label class="form__genderlabel" for="genders">Пол</label>
+                <select class="form__gender" name="genders" id="genders">
+                  <option value="male">Мужской</option>
+                  <option value="female">Женский</option>
+                </select>
+              </div>
+              <span class="form__input-error input-gender-error"></span>
+
+
+
+<!--
               <div class="form__genders">
                 <div class="form__gender">
                   <input class="form__item form__item_content_gender" id="male" type="radio" name="gender" value="male" checked>
@@ -55,6 +68,7 @@
                 </div>
               </div>
               <span class="form__input-error input-gender-error"></span>
+              -->
               <label class="form__field">
                 <input class="form__input form__input_content_image" id="input-image" type="text" name="image" placeholder="Ссылка на фотографию" value="./images/photo.png">
                 <span class="form__input-error input-image-error" ></span>
@@ -68,7 +82,7 @@
                 <span class="form__input-error input-birthday-error" ></span>
               </label>
               <label class="form__field">
-                <input class="form__input form__input_content_about" id="input-about" type="text" name="about" placeholder="Информация о человеке">
+                <textarea class="form__input form__input_content_about" id="input-about" type="text" name="about" placeholder="Информация о человеке"></textarea>
                 <span class="form__input-error input-about-error" ></span>
               </label>
               <label class="form__field">

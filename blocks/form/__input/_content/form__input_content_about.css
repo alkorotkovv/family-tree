@@ -1,0 +1,9 @@
+.form__input_content_about {
+  min-height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  resize: none;
+}
+
+.form__input_content_about:focus {
+  border: 1px solid rgba(0, 0, 0, 1);;
+}

@@ -1,0 +1,6 @@
+.form__gender {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

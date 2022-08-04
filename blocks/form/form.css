@@ -2,7 +2,7 @@
   width: 100%;
   min-width: 430px;
   margin: 0;
-  padding: 34px 36px 37px 36px;
+  padding: 30px;
   box-sizing: border-box;
   border-radius: 10px;
   display: flex;
@@ -10,6 +10,9 @@
   align-items: center;
   justify-content: center;
   background-color: white;
+  background-image: url(../../images/form_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 600px) {
