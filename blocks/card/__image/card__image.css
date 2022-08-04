@@ -1,6 +1,6 @@
 .card__image {
-  width: 80px;
   height: 80px;
+  box-sizing: border-box;
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -8,30 +8,20 @@
 
 
 
-@media (max-width: 950px) {
+@media (max-width: 1100px) {
   .card__image {
-    width: 340px;
-    height: 340px;
+    height: 60px;
   }
 }
 
 @media (max-width: 767px) {
   .card__image {
-    width: 282px;
-    height: 282px;
+    height: 40px;
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 550px) {
   .card__image {
-    width: 340px;
-    height: 340px;
-  }
-}
-
-@media (max-width: 400px) {
-  .card__image {
-    width: 282px;
-    height: 282px;
+    height: 25px;
   }
 }
