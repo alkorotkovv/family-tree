@@ -3,6 +3,7 @@
   padding: 0;
   width: 150px;
   height: 50px;
+  text-align: center;
   background-color: transparent;
   border: 1px solid white;
   border-radius: 50px;
@@ -13,4 +14,41 @@
   text-transform: uppercase;
 
   justify-self: end;
+}
+
+@media (max-width: 1100px) {
+  .header__button {
+    width: 120px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header__button {
+    width: 90px;
+    height: 30px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 550px) {
+  .header__button {
+    background-image: url(../../../images/user.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    border-radius: 0;
+    color: transparent;
+    width: 30px;
+    height: 30px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 400px) {
+  .header__button {
+    width: 25px;
+    height: 25px;
+  }
 }
