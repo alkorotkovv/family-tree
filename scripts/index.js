@@ -32,6 +32,8 @@ const aboutInput = formAddCard.querySelector('.form__input_content_about');
 const genderInputs = formAddCard.querySelectorAll('.form__item_content_gender');
 export const IDInput = formAddCard.querySelector('.form_id');
 
+const genderSelect = formAddCard.genders;
+console.log(genderSelect)
 
 //Генерация карточки +
 function generateAddCard() {
@@ -74,9 +76,9 @@ function closePopupByKeyPress(evt) {
 //Функция определяющая пол, выбранный в форме
 function getGender() {
   let gender;
-  genderInputs.forEach((genderInput) => {
-    if (genderInput.checked)
-      gender = genderInput.value;
+  Array.from(genderSelect).forEach((genderOption) => {
+    if (genderOption.selected)
+      gender = genderOption.value;
   })
   return gender;
 };
