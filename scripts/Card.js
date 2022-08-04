@@ -68,11 +68,11 @@ export class Card {
   };
 
   _showDeleteIcon() {
-    this._cardDeleteElement.classList.add('card__delete_active');
+    this._cardDeleteElement.classList.add('card__delete_visible');
   }
 
   _hideDeleteIcon() {
-    this._cardDeleteElement.classList.remove('card__delete_active');
+    this._cardDeleteElement.classList.remove('card__delete_visible');
   }
 
   //Публичный метод создания элемента карточки
