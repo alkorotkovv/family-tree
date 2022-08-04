@@ -27,6 +27,7 @@
     height: 101.25px;
     margin: 8px;
     border-radius: 8px;
+    font-size: 32px;
   }
 }
 
@@ -36,6 +37,7 @@
     height: 67.5px;
     margin: 6px;
     border-radius: 6px;
+    font-size: 24px;
   }
 }
 
@@ -45,5 +47,6 @@
     height: 42.1875px;
     margin: 4px;
     border-radius: 4px;
+    font-size: 18px;
   }
 }
