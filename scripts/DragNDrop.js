@@ -111,7 +111,12 @@ document.addEventListener('touchend', function(evt) {
   //areaAppend.style.boxShadow = "none";
       checkGeneration();
     }
-  else return;
+  else
+    {
+      buffer.appendChild(elem);
+      elem.style.top = "";
+      elem.style.left = "";
+    }
   //const area = evt.target.closest('.area');
 
 });
