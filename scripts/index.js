@@ -20,7 +20,8 @@ export const popupCardGender = popupCard.querySelector('.card-scale__gender');
 export const popupCardGeneration = popupCard.querySelector('.card-scale__generation');
 
 const content = document.querySelector('.content');
-const buffer = document.querySelector('.buffer');
+export const buffer = document.querySelector('.buffer');
+export const header = document.querySelector('.header');
 
 export const popupAddCard = page.querySelector('.popup_type_add');
 const formAddCard = popupAddCard.querySelector('.form_card_add');
