@@ -1,9 +1,8 @@
-import {openPopup, popupAddCard, IDInput} from './index.js';
-
 //Класс карточки
 export class AddArea {
-  constructor()
+  constructor(handleCardClick)
   {
+    this._handleCardClick = handleCardClick;
   };
 
 
@@ -12,28 +11,30 @@ export class AddArea {
     return document.querySelector('#areaTemplate').content.querySelector('.area').cloneNode(true);
   };
 
+  /*
   //Метод открытия попапа карточки
   _openPopupAddCard() {
-    //console.log(IDInput);
+    console.log(this._areaAddElement);
     //IDInput.textContent = this._generation;
     openPopup(popupAddCard);
   };
+  */
 
   //Метод, добавляющий слушатели
   _setEventListeners() {
-    this._cardAddElement.addEventListener('click', (evt) => {
+    this._areaAddElement.addEventListener('click', (evt) => {
       //this._generation = evt.target.closest('.generation').id;
       //console.log(evt.target.closest('.generation').id);
-      this._openPopupAddCard();
+      this._handleCardClick();
     });
   };
 
   //Публичный метод создания элемента карточки
   createAddAreaElement() {
-    this._cardAddElement = this._getTemplate();
+    this._areaAddElement = this._getTemplate();
     this._setEventListeners();
     //console.log(this._cardElement)
-    return this._cardAddElement;
+    return this._areaAddElement;
   };
 
 }

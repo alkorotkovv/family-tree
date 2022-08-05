@@ -1,11 +1,6 @@
-//Импорт необходимых данных
-import {openPopup, popupCard, popupCardImage, popupCardTitle, popupCardPlace, popupCardBirthday, popupCardAbout, popupCardGender, popupCardGeneration, checkGeneration} from './index.js';
-
-export let Elem;
-
 //Класс карточки
 export class Card {
-  constructor(data)
+  constructor(data, {handleCardClick})
   {
     this._name = data.name;
     this._image = data.image;
@@ -14,6 +9,7 @@ export class Card {
     this._about = data.about;
     this._gender = data.gender;
     this._generation = data.generation;
+    this._handleCardClick = handleCardClick;
   };
 
   //Метод получения шаблона карточки
@@ -21,6 +17,7 @@ export class Card {
     return document.querySelector('#cardTemplate').content.querySelector('.card').cloneNode(true);
   };
 
+  /*
   //Метод открытия попапа карточки
   _openPopupCard() {
     popupCardImage.src = this._image;
@@ -33,14 +30,15 @@ export class Card {
     popupCardGeneration.textContent = this._generation;
     openPopup(popupCard);
   };
+  */
 
   //Метод, добавляющий слушатели
   _setEventListeners() {
     this._cardImageElement.addEventListener('click', () => {
-      this._openPopupCard();
+      this._handleCardClick();
     });
     this._cardNameElement.addEventListener('click', () => {
-      this._openPopupCard();
+      this._handleCardClick();
     });
     this._cardElement.addEventListener('mouseover', () => {
       this._showDeleteIcon();

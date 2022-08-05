@@ -1,122 +1,55 @@
 //Импорт необходимых данных
 import { validateList } from "./constants.js";
 import { Card } from "./Card.js";
-import { AddCard } from "./AddCard.js";
 import { FormValidator } from "./FormValidator.js";
-import { Area } from "./Area.js";
 import { AddArea } from "./AddArea.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 
 //Блок объявления переменных
 const page = document.querySelector('.page');
-
-const popupList = page.querySelectorAll('.popup');
-
-export const popupCard = page.querySelector('.popup_type_card');
-export const popupCardImage = popupCard.querySelector('.card-scale__image');
-export const popupCardTitle = popupCard.querySelector('.card-scale__title');
-export const popupCardPlace = popupCard.querySelector('.card-scale__place');
-export const popupCardBirthday = popupCard.querySelector('.card-scale__birthday');
-export const popupCardAbout = popupCard.querySelector('.card-scale__about');
-export const popupCardGender = popupCard.querySelector('.card-scale__gender');
-export const popupCardGeneration = popupCard.querySelector('.card-scale__generation');
-
 const content = document.querySelector('.content');
+const formAddCard = document.querySelector('.form_card_add');
 export const buffer = document.querySelector('.buffer');
 export const header = document.querySelector('.header');
 
-export const popupAddCard = page.querySelector('.popup_type_add');
-const formAddCard = popupAddCard.querySelector('.form_card_add');
-const nameInput = formAddCard.querySelector('.form__input_content_name');
-const imageInput = formAddCard.querySelector('.form__input_content_image');
-const placeInput = formAddCard.querySelector('.form__input_content_place');
-const birthdayInput = formAddCard.querySelector('.form__input_content_birthday');
-const aboutInput = formAddCard.querySelector('.form__input_content_about');
-const genderInputs = formAddCard.querySelectorAll('.form__item_content_gender');
-export const IDInput = formAddCard.querySelector('.form_id');
 
-const genderSelect = formAddCard.genders;
-console.log(genderSelect)
 
-//Генерация карточки +
-function generateAddCard() {
-  const card = new AddCard();
-  return card.createAddCardElement();
-}
 
-//Функция генерации области для карточки
-function generateAreas() {
-  const area = new Area();
-  return area.createAreaElement();
-}
 
-//Функция генерации области для карточки +
-function generateAddAreas() {
-  const area = new AddArea();
-  return area.createAddAreaElement();
-}
-
-//Отрисовка карточки +
-function initAddCard() {
-    const cardAddElement = generateAddCard();
-    insertCard(cardAddElement);
-    createGeneration(0);
-};
-
-//Функция получения открытого попапа
-function getOpenedPopup() {
-  return page.querySelector('.popup_opened');
-};
-
-//Функция открытия попапа
-export function openPopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByKeyPress);
-};
-
-//Функция закрытия попапа
-function closePopup(popupElement) {
-  document.removeEventListener('keydown', closePopupByKeyPress);
-  popupElement.classList.remove('popup_opened');
-};
-
-//Функция закрытия попапа на нажатие ESC
-function closePopupByKeyPress(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = getOpenedPopup();
-    closePopup(openedPopup);
-  }
-};
-
-//Функция определяющая пол, выбранный в форме
-function getGender() {
-  let gender;
-  Array.from(genderSelect).forEach((genderOption) => {
-    if (genderOption.selected)
-      gender = genderOption.value;
-  })
-  return gender;
-};
-
+const popupAddPerson = new PopupWithForm('.popup_type_add', handleSubmitFormAdd);
+popupAddPerson.setEventListeners();
+const popupInfoPerson = new PopupWithImage('.popup_type_card');
+popupInfoPerson.setEventListeners();
 
 
 //Обработчик добавления новой карточки
-function formAddCardSubmitHandler (evt) {
-  evt.preventDefault();
+function handleSubmitFormAdd (inputValuesObject) {
+  console.log(inputValuesObject);
   const cardData = {
-    name: nameInput.value,
-    image: imageInput.value,
-    place: placeInput.value,
-    birthday: birthdayInput.value,
-    about: aboutInput.value,
-    gender: getGender(),
-    generation: Number(IDInput.textContent)
+    name: inputValuesObject.name,
+    image: inputValuesObject.image,
+    place: inputValuesObject.place,
+    birthday: inputValuesObject.birthday,
+    about: inputValuesObject.about,
+    gender: inputValuesObject.gender
   };
-  console.log(cardData)
   addCard(cardData);
-  formAddCard.reset();  //Очищаем поля формы
-  //formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
-  closePopup(popupAddCard);
+  //cardsSection.addItem(generateCard({name: place, link: url}));
+  formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
+  popupAddPerson.close();
 };
+
+
+function handleClickAddArea () {
+  //const { name, job } = user.getUserInfo(); //деструктуризация
+  //nameInput.value = name;  //заполняем поля ввода данными из профиля
+  //jobInput.value = job;
+  //formEditValidator.hideErrors();  //скрываем ошибки при открытии
+  //formEditValidator.activateSaveButton();  //активируем кнопку при открытии
+  popupAddPerson.open();
+}
+
 
 
 
@@ -124,12 +57,14 @@ function formAddCardSubmitHandler (evt) {
 //Функция добавления карточки
 function addCard(cardData) {
   //console.log(cardData)
-  const card = new Card(cardData);
+  const card = new Card(cardData, {
+    handleCardClick: () => {
+      popupInfoPerson.open(card._name, card._image, card._place, card._birthday, card._about, card._gender, card._generation);
+    }
+  });
   const cardElement = card.createCardElement();
   insertCard(cardElement);
 };
-
-
 
 
 //Функция проверки, не надо ли создавать новое поколение
@@ -139,10 +74,6 @@ export function checkGeneration() {
   //console.log(generationList.length);
   const lastGeneration = document.getElementById(`${generationList.length}`);
   const prelastGeneration = document.getElementById(`${generationList.length-1}`);
-  //console.log("последнее поколение ");
- // console.log(lastGeneration);
-  //console.log("предпоследнее поколение ");
- // console.log(prelastGeneration);
   const lastCardList = lastGeneration.querySelectorAll('.card');
   //console.log(cardList);
   if (lastCardList.length > 0)
@@ -155,18 +86,7 @@ export function checkGeneration() {
     }
 };
 
-//Функция создания нового поколения
-function createGeneration(nowGeneration) {
-  const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
-  generationElement.id = nowGeneration + 1;
-  content.append(generationElement);
-  for (let i = 0; i < 11; i++) { // выведет 0, затем 1, затем 2
-    //generationElement.append(generateAreas());
-    //generationElement.append(generateAddCard());
-    generationElement.append(generateAddAreas());
-  }
-  //generationElement.append(generateAddCard());
-};
+
 
 //Функция вставки карточки в разметку
 function insertCard(cardElement) {
@@ -181,24 +101,38 @@ function generationCount() {
 
 
 
-//Слушатель для кнопки сабмита в попапе добавления карточки
-formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
-//Добавляем слушатели на все попапы (для закрытия попапа кликом на оверлей или крестик)
-popupList.forEach((popupItem)=>{
-  popupItem.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button'))
-      closePopup(popupItem)
-  });
-});
 
+
+
+
+
+
+
+//Отрисовка карточки +
+function init() {
+    createGeneration(0);
+};
+
+//Функция создания нового поколения
+function createGeneration(nowGeneration) {
+  const generationElement = document.querySelector('#generationTemplate').content.querySelector('.generation').cloneNode(true);
+  generationElement.id = nowGeneration + 1;
+  content.append(generationElement);
+  for (let i = 0; i < 11; i++) { // выведет 0, затем 1, затем 2
+    generationElement.append(generateAddAreas());
+  }
+};
+
+//Функция генерации карточки +
+function generateAddAreas() {
+  const area = new AddArea(handleClickAddArea);
+  return area.createAddAreaElement();
+}
+
+//Создание первоначальных данных
+init();
 
 //Создаем валидатор для формы
 const formAddValidator = new FormValidator(validateList, formAddCard);
 formAddValidator.enableValidation();
-
-//Создание первоначальной карточки +
-//initAddCard();
-
-
-createGeneration(0);
