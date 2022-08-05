@@ -62,7 +62,7 @@ document.addEventListener('touchmove', function(evt) {
   if (Array.from(elem.parentNode.classList).some(item => item === "buffer"))
     {
       elem.style.top = `${touch.pageY - getCoords(buffer).top - (elem.offsetHeight / 2)}px`;
-      elem.style.left = `${touch.pageX - (elem.offsetWidth / 2)}px`;
+      elem.style.left = `${touch.pageX - getCoords(buffer).left - (elem.offsetWidth / 2)}px`;
     }
   else if (Array.from(elem.parentNode.classList).some(item => item === "area"))
     {
