@@ -4,6 +4,7 @@ import { Card } from "./Card.js";
 import { AddCard } from "./AddCard.js";
 import { FormValidator } from "./FormValidator.js";
 import { Area } from "./Area.js";
+import { AddArea } from "./AddArea.js";
 
 //Блок объявления переменных
 const page = document.querySelector('.page');
@@ -40,6 +41,18 @@ console.log(genderSelect)
 function generateAddCard() {
   const card = new AddCard();
   return card.createAddCardElement();
+}
+
+//Функция генерации области для карточки
+function generateAreas() {
+  const area = new Area();
+  return area.createAreaElement();
+}
+
+//Функция генерации области для карточки +
+function generateAddAreas() {
+  const area = new AddArea();
+  return area.createAddAreaElement();
 }
 
 //Отрисовка карточки +
@@ -84,27 +97,8 @@ function getGender() {
   return gender;
 };
 
-/*
-//Функция открытия попапа редактирования профиля
-function openPopupEdit() {
-  nameInput.value = nameProfile.textContent;  //заполняем поля ввода данными из профиля
-  jobInput.value = jobProfile.textContent;
-
-  formEditValidator.hideErrors();  //скрываем ошибки при открытии
-  formEditValidator.activateSaveButton();  //активируем кнопку при открытии
-  openPopup(popupEdit);
-};
 
 
-//Обработчик отправки формы редактирования профиля
-function formEditSubmitHandler (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. Так мы можем определить свою логику отправки. О том, как это делать, расскажем позже.
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  closePopup(popupEdit);
-};
-
-*/
 //Обработчик добавления новой карточки
 function formAddCardSubmitHandler (evt) {
   evt.preventDefault();
@@ -127,17 +121,6 @@ function formAddCardSubmitHandler (evt) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 //Функция добавления карточки
 function addCard(cardData) {
   //console.log(cardData)
@@ -145,24 +128,6 @@ function addCard(cardData) {
   const cardElement = card.createCardElement();
   insertCard(cardElement);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -196,18 +161,12 @@ function createGeneration(nowGeneration) {
   generationElement.id = nowGeneration + 1;
   content.append(generationElement);
   for (let i = 0; i < 11; i++) { // выведет 0, затем 1, затем 2
-    generationElement.append(generateAreas());
+    //generationElement.append(generateAreas());
+    //generationElement.append(generateAddCard());
+    generationElement.append(generateAddAreas());
   }
   //generationElement.append(generateAddCard());
 };
-
-/*-
-//Функция вставки карточки в разметку
-function insertCard(cardElement, generation) {
-  const generationElement = document.getElementById(`${generation}`);
-  generationElement.prepend(cardElement);
-};
-*/
 
 //Функция вставки карточки в разметку
 function insertCard(cardElement) {
@@ -219,36 +178,6 @@ function generationCount() {
   const generationCount = Array.from(page.querySelectorAll('.generation'));
   return generationCount.length;
 };
-
-//Функция генерации области для карточки
-function generateAreas() {
-  const area = new Area();
-  return area.createAreaElement();
-}
-
-
-/*
-//Слушатель для кнопки редактировать профиль
-buttonProfileEdit.addEventListener('click', openPopupEdit);
-
-//Слушатель для кнопки добавить карточку
-buttonProfileAdd.addEventListener('click', openPopupAdd);
-
-/*
-//Добавляем слушатели на все кнопки закрытия попапа на странице
-const buttonClosePopupList = page.querySelectorAll('.popup__close-button');
-buttonClosePopupList.forEach((buttonElement) => {
-  buttonElement.addEventListener('click', (evt) => {
-    const openedPopup = evt.target.closest('.popup_opened');
-    closePopup(openedPopup);
-  });
-});
-*/
-/*
-//Слушатель для кнопки сохранения формы редактирования профиля
-formEdit.addEventListener('submit', formEditSubmitHandler);
-
-*/
 
 
 
@@ -269,4 +198,7 @@ const formAddValidator = new FormValidator(validateList, formAddCard);
 formAddValidator.enableValidation();
 
 //Создание первоначальной карточки +
-initAddCard();
+//initAddCard();
+
+
+createGeneration(0);
