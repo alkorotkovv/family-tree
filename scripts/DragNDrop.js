@@ -35,8 +35,13 @@ document.addEventListener('dragstart', function(evt) {
     console.log(elem);
 });
 
+document.addEventListener('dragover', function(evt) {
+  evt.preventDefault();
+});
+
 document.addEventListener('drop', function(evt) {
   console.log('Drop');
+  evt.preventDefault();
   //console.log(evt.target.closest('.area'));
   const area = evt.target.closest('.area');
   area.appendChild(elem);
@@ -80,16 +85,6 @@ document.addEventListener('touchmove', function(evt) {
       elem.style.top = `${touch.pageY - 99 - (elem.offsetHeight / 2)}px`;
       elem.style.left = `${touch.pageX - (elem.offsetWidth / 2)}px`;
     }
-
-
-
-  //elem.style.top = `${touch.pageY}px`;
-  //elem.style.left = `${touch.pageX}px`;
-
-  /*
-  elem.style.top = `${touch.pageY - (content.offsetTop) - (elem.offsetWidth / 2)}px`;
-  elem.style.left = `${touch.pageX - (content.offsetLeft) - (elem.offsetHeight / 2)}px`;
-  */
 
   areas.forEach((area) => {
     if (
