@@ -1,3 +1,5 @@
+import { checkGeneration } from "./index.js";
+
 //Класс карточки
 export class Card {
   constructor(data, {handleCardClick})

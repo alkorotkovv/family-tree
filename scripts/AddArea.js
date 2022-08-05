@@ -25,6 +25,10 @@ export class AddArea {
     this._areaAddElement.addEventListener('click', (evt) => {
       //this._generation = evt.target.closest('.generation').id;
       //console.log(evt.target.closest('.generation').id);
+      //console.log(evt.target);
+      //console.log(evt.currentTarget.hasChildNodes());
+      //console.log(evt.currentTarget.childNodes.length);
+      if (evt.currentTarget.childNodes.length == 1)
       this._handleCardClick();
     });
   };

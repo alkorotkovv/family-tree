@@ -24,8 +24,8 @@ popupInfoPerson.setEventListeners();
 
 
 //Обработчик добавления новой карточки
-function handleSubmitFormAdd (inputValuesObject) {
-  console.log(inputValuesObject);
+function handleSubmitFormAdd (inputValuesObject, area) {
+  //console.log(area);
   const cardData = {
     name: inputValuesObject.name,
     image: inputValuesObject.image,
@@ -34,7 +34,8 @@ function handleSubmitFormAdd (inputValuesObject) {
     about: inputValuesObject.about,
     gender: inputValuesObject.gender
   };
-  addCard(cardData);
+  insertCard(generateCard(cardData), area);
+  checkGeneration();
   //cardsSection.addItem(generateCard({name: place, link: url}));
   formAddValidator.deactivateSaveButton(); //делаем кнопку неактивной
   popupAddPerson.close();
@@ -47,7 +48,8 @@ function handleClickAddArea () {
   //jobInput.value = job;
   //formEditValidator.hideErrors();  //скрываем ошибки при открытии
   //formEditValidator.activateSaveButton();  //активируем кнопку при открытии
-  popupAddPerson.open();
+  console.log();
+  popupAddPerson.open(this._areaAddElement);
 }
 
 
@@ -55,15 +57,14 @@ function handleClickAddArea () {
 
 
 //Функция добавления карточки
-function addCard(cardData) {
+function generateCard(cardData) {
   //console.log(cardData)
   const card = new Card(cardData, {
     handleCardClick: () => {
       popupInfoPerson.open(card._name, card._image, card._place, card._birthday, card._about, card._gender, card._generation);
     }
   });
-  const cardElement = card.createCardElement();
-  insertCard(cardElement);
+  return card.createCardElement();
 };
 
 
@@ -89,8 +90,11 @@ export function checkGeneration() {
 
 
 //Функция вставки карточки в разметку
-function insertCard(cardElement) {
-  buffer.append(cardElement);
+function insertCard(cardElement, area) {
+  //console.log(area);
+  //buffer.append(cardElement);
+  area.append(cardElement);
+  area.hidden = false;
 };
 
 //Функция возвращающая количество текущих поколений на странице
