@@ -26,9 +26,11 @@ export class AddArea {
       //this._generation = evt.target.closest('.generation').id;
       //console.log(evt.target.closest('.generation').id);
       //console.log(evt.target);
-      //console.log(evt.currentTarget.hasChildNodes());
+      //console.log(evt.currentTarget);
       //console.log(evt.currentTarget.childNodes.length);
-      if (evt.currentTarget.childNodes.length == 1)
+      //Array.from(evt.target.classList).forEach((item) => console.log(item))
+      //console.log(Array.from(evt.target.classList));
+      if ((evt.currentTarget.childNodes.length == 1) && !(Array.from(evt.target.classList).some(item => item == "card__delete")))
       this._handleCardClick();
     });
   };

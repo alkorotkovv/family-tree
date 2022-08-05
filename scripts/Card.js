@@ -51,7 +51,6 @@ export class Card {
     this._cardDeleteElement.addEventListener('click', () => {
       this._deleteCard();
     });
-
   };
 
   //Метод удаления карточки

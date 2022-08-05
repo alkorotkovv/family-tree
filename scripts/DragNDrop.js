@@ -4,6 +4,7 @@ const content = document.querySelector('.content');
 let elem = null;
 let areaAppend = null;
 let areaStart = null;
+//let area;
 let coord;
 
 function getCoords(elem) {
@@ -22,18 +23,20 @@ function getCoords(elem) {
 
 
 document.addEventListener('dragstart', function(evt) {
-    //console.log('Start');
+    console.log('Start');
     //console.log(evt.target.closest('.card'));
-    const area = evt.target.closest('.area');
+    //const area = evt.target.closest('.area');
+    //console.log(area);
     /*
     if (area != null)
     area.style.boxShadow = "0px 0px 8px 4px rgba(0, 0, 0, 0.3) inset";
     */
     elem = evt.target.closest('.card');
+    console.log(elem);
 });
 
 document.addEventListener('drop', function(evt) {
-  //console.log('Drop');
+  console.log('Drop');
   //console.log(evt.target.closest('.area'));
   const area = evt.target.closest('.area');
   area.appendChild(elem);
@@ -43,15 +46,22 @@ document.addEventListener('drop', function(evt) {
 
 
 
+
+
+
+document.addEventListener('touchstart', function(evt) {
+  areaStart = evt.target.closest('.area');
+});
+
 document.addEventListener('touchmove', function(evt) {
   //evt.preventDefault();
   console.log('Start');
+
   console.log("bufferY = " + getCoords(buffer).top);
   elem = evt.target.closest('.card');
   //console.log(elem);
   const areas = document.querySelectorAll('.area');
   //console.log(areas);
-  const areaa = evt.target.closest('.area');
 
   let touch = evt.targetTouches[0];
   console.log(touch);
@@ -101,6 +111,7 @@ document.addEventListener('touchmove', function(evt) {
 
 document.addEventListener('touchend', function(evt) {
   console.log('Dropв');
+  console.log(areaStart);
   if (areaAppend !== null)
     {
       areaAppend.appendChild(elem);
@@ -113,7 +124,7 @@ document.addEventListener('touchend', function(evt) {
     }
   else
     {
-      buffer.appendChild(elem);
+      areaStart.appendChild(elem);
       elem.style.top = "";
       elem.style.left = "";
     }
