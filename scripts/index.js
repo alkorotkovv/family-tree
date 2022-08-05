@@ -123,22 +123,48 @@ function formAddCardSubmitHandler (evt) {
   closePopup(popupAddCard);
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Функция добавления карточки
 function addCard(cardData) {
   //console.log(cardData)
   const card = new Card(cardData);
   const cardElement = card.createCardElement();
   insertCard(cardElement);
-  cardElement.addEventListener('touchmove', gg);
-  //checkGeneration();
-  //insertCard(cardElement, cardData.generation);
 };
 
-function gg(evt) {
-  console.log("ffffffff");
-  console.log(evt.target);
-  console.log("ffffffff");
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Функция проверки, не надо ли создавать новое поколение
 export function checkGeneration() {
